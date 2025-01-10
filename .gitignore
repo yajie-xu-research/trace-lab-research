@@ -1,0 +1,12 @@
+# Research data and secrets never enter version control.
+evidence/
+data/private/
+governance/*.secrets.json
+logs/*.payload
+__pycache__/
+*.pyc
+*.egg-info/
+.venv/
+venv/
+.DS_Store
+.pytest_cache/

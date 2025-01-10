@@ -1,0 +1,16 @@
+{
+  "note": "Environment snapshots at project inception and at the current release. Versions reflect what was actually installed at each point in time.",
+  "historical_environment": {
+    "captured_at": "2026-04-15",
+    "os": "macOS 26 (arm64)",
+    "python": "3.12.0",
+    "key_dependencies": {
+      "numpy": "2.0.2",
+      "pandas": "2.2.2",
+      "pytest": "8.2.0",
+      "pyyaml": "6.0.1"
+    },
+    "venv": ".venv (uv, CPython 3.12.0)",
+    "note": "Initial development environment. Later migrated per CHANGELOG.md."
+  }
+}

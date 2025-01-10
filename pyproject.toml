@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "trace-lab-research"
+version = "1.2.0"
+description = "Versioned field lineage tracing and defect-category triage research tool for clinical laboratory data operations"
+readme = "README.md"
+requires-python = ">=3.11"
+license = {text = "Proprietary - internal research use"}
+authors = [{name = "TRACE-LAB Research Group"}]
+
+dependencies = [
+  "numpy>=1.26",
+  "pandas>=2.1",
+  "pyyaml>=6.0",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=7.4"]
+
+[project.scripts]
+trace-lab = "trace_lab.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
