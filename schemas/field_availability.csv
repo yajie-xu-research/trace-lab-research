@@ -1,0 +1,23 @@
+feature_name,source_table,business_definition,generation_time,queryable_time,available_at_anomaly_time,confirmed_by
+node_id,lineage_nodes,lineage node identifier,2025-01-10,2025-01-10,true,SYSTEMS_ARCHITECT_01
+system,lineage_nodes,originating system of the node,2025-01-10,2025-01-10,true,SYSTEMS_ARCHITECT_01
+unit,lineage_nodes,expected unit at node,2025-01-10,2025-01-10,true,SYSTEMS_ARCHITECT_01
+schema_version,lineage_nodes,schema version of the node,2025-01-10,2025-01-10,true,SYSTEMS_ARCHITECT_01
+valid_from,lineage_nodes,validity start of node,2025-01-10,2025-01-10,true,SYSTEMS_ARCHITECT_01
+valid_to,lineage_nodes,validity end of node,2025-01-10,2025-01-10,true,SYSTEMS_ARCHITECT_01
+transform_id,lineage_edges,transform identifier on edge,2025-01-10,2025-01-10,true,SYSTEMS_ARCHITECT_01
+rule_version,lineage_edges,transform rule version on edge,2025-01-10,2025-01-10,true,SYSTEMS_ARCHITECT_01
+change_id,schema_changes,schema change identifier,2025-01-10,2025-01-10,true,CHANGE_MANAGER_01
+change_category,schema_changes,nature of the schema change,2025-01-10,2025-01-10,true,CHANGE_MANAGER_01
+effective_at,schema_changes,effective time of the change,2025-01-10,2025-01-10,true,CHANGE_MANAGER_01
+affected_nodes,schema_changes,nodes touched by the change,2025-01-10,2025-01-10,true,CHANGE_MANAGER_01
+ticket_index,schema_changes,index of related ticket if any,2025-01-10,2025-01-10,true,CHANGE_MANAGER_01
+value_range,field_profiles,approved value range or format,2025-01-10,2025-01-10,true,DATA_OWNER_01
+missing_rate,field_profiles,approved baseline missing rate,2025-01-10,2025-01-10,true,DATA_OWNER_01
+raw_value,field_observations,observed raw value,stream,stream,true,DATA_PLATFORM_01
+parsed_value,field_observations,parsed observed value,stream,stream,true,DATA_PLATFORM_01
+reported_unit,field_observations,unit as recorded in the stream,stream,stream,true,DATA_PLATFORM_01
+confirmed_category,defect_tickets,confirmed defect category,after investigation,after investigation,false,QUALITY_LEAD_01
+basis,defect_tickets,confirmation basis text,after investigation,after investigation,false,QUALITY_LEAD_01
+perturbation_plan,perturbation_library,controlled injection plan,evaluation phase,evaluation phase,false,EVALUATION_TRUSTEE_01
+normal_controls,normal_control_index,negative control index,evaluation phase,evaluation phase,false,EVALUATION_TRUSTEE_01

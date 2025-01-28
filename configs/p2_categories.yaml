@@ -1,0 +1,131 @@
+# TRACE-LAB defect category dictionary.
+# Frozen at 2025-01-28 (rule_version 1.0), before any evaluation.
+# Categories are mutually exclusive per confirmed root cause; precedence rules
+# resolve cases where more than one category could explain the same symptom.
+#
+# A category may only be assigned when its evidence requirements are met and no
+# higher-precedence category applies. UNKNOWN is the fallback when evidence is
+# insufficient; it is never combined with another category.
+
+rule_version: "1.0"
+frozen_at: "2025-01-28"
+category_count: 6
+
+categories:
+  UNIT_CHANGE:
+    ordinal: 1
+    definition: >-
+      A change in the unit in which a field value is recorded, converted, or
+      reported without a coordinated update of every downstream consumer.
+    symptom_signatures:
+      - anomaly_rule: UNIT_DEVIATION
+        weight: 3
+      - anomaly_rule: RANGE_VIOLATION
+        weight: 1
+    matching_change_categories:
+      - UNIT_REDEFINITION
+    precedence_over:
+      - INTERFACE_MAPPING_ERROR
+    exclusive_with: []
+
+  INTERFACE_MAPPING_ERROR:
+    ordinal: 2
+    definition: >-
+      A defect in an interface mapping step: wrong source-to-target column or
+      code mapping, positional shift, or stale mapping table applied to a new
+      interface version.
+    symptom_signatures:
+      - anomaly_rule: FORMAT_VIOLATION
+        weight: 2
+      - anomaly_rule: RANGE_VIOLATION
+        weight: 2
+      - anomaly_rule: CHANGE_POINT
+        weight: 1
+    matching_change_categories:
+      - INTERFACE_REMAP
+    precedence_over: []
+    exclusive_with: []
+
+  FIELD_SEMANTIC_CHANGE:
+    ordinal: 3
+    definition: >-
+      The meaning of a field changed (different population, different
+      calculation rule, re-scoped reference) while the field name and format
+      stayed the same.
+    symptom_signatures:
+      - anomaly_rule: CHANGE_POINT
+        weight: 3
+    matching_change_categories:
+      - SEMANTIC_REDEFINITION
+    precedence_over: []
+    exclusive_with: []
+
+  EXTRACTION_FAILURE:
+    ordinal: 4
+    definition: >-
+      A failure in the extraction pipeline: interrupted batch, dropped
+      partitions, malformed parsing, or a regression in the extraction job.
+    symptom_signatures:
+      - anomaly_rule: MISSING_RATE_SHIFT
+        weight: 3
+    matching_change_categories:
+      - EXTRACTION_PIPELINE_CHANGE
+    precedence_over:
+      - INTERFACE_MAPPING_ERROR
+    exclusive_with: []
+
+  TRUE_BUSINESS_CHANGE:
+    ordinal: 5
+    definition: >-
+      A real change in laboratory operations or clinical policy (new platform,
+      revised reference policy, new specimen handling) that legitimately
+      changes the data distribution and is not a data defect.
+    symptom_signatures:
+      - anomaly_rule: CHANGE_POINT
+        weight: 2
+      - anomaly_rule: RANGE_VIOLATION
+        weight: 1
+    matching_change_categories:
+      - BUSINESS_CHANGE
+    precedence_over: []
+    exclusive_with:
+      - UNIT_CHANGE
+      - INTERFACE_MAPPING_ERROR
+      - FIELD_SEMANTIC_CHANGE
+      - EXTRACTION_FAILURE
+
+  UNKNOWN:
+    ordinal: 6
+    definition: >-
+      Evidence at the time of triage is insufficient to confirm any of the
+      categories above. The tool must abstain rather than guess.
+    symptom_signatures: []
+    matching_change_categories: []
+    precedence_over: []
+    exclusive_with:
+      - UNIT_CHANGE
+      - INTERFACE_MAPPING_ERROR
+      - FIELD_SEMANTIC_CHANGE
+      - EXTRACTION_FAILURE
+      - TRUE_BUSINESS_CHANGE
+
+precedence_note: >-
+  Precedence is applied to candidates, not to tickets. When two candidate
+  categories both pass evidence gates for the same anomaly and one category
+  is listed in precedence_over of the other, the higher category wins only if
+  its symptom-match score strictly exceeds the other; otherwise the anomaly is
+  ambiguous and the tool abstains with AMBIGUOUS_CANDIDATES.
+
+abstention_conditions:
+  - condition: >-
+      Two or more candidates with overlapping effective windows whose scores
+      are within tie_epsilon of each other.
+    reason_code: AMBIGUOUS_CANDIDATES
+  - condition: >-
+      The lineage path at the anomaly time is broken, cyclic, or contains
+      contradictory validity ranges.
+    reason_code: LINEAGE_UNRESOLVED
+  - condition: >-
+      No candidate change satisfies both the lineage-path gate and the time
+      validity gate, or the best score is below min_triage_score.
+    reason_code: INSUFFICIENT_EVIDENCE
