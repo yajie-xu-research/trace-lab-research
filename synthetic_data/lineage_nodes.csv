@@ -1,0 +1,33 @@
+node_id,system,field_name,semantic_definition,unit,datatype,schema_version,valid_from,valid_to
+N001,ANALYZER,analyzer_raw_result,raw measured value from the analyzer,mg/dL,numeric,SCHEMA_V1,2025-01-10T00:00:00Z,
+N002,ETL,etl_result,parsed result value in the extraction layer,mg/dL,numeric,SCHEMA_V1,2025-01-10T00:00:00Z,2025-06-01T05:00:00Z
+N003,LIS,lis_result_value,stored result value in the LIS,mg/dL,numeric,SCHEMA_V1,2025-01-10T00:00:00Z,2025-06-01T05:00:00Z
+N004,INTERFACE,iface_result_value,result value on the outbound interface,mg/dL,numeric,SCHEMA_V1,2025-01-10T00:00:00Z,2025-06-01T05:00:00Z
+N005,REPORT,report_result_value,result value rendered on the report,mg/dL,numeric,SCHEMA_V1,2025-01-10T00:00:00Z,2025-06-01T05:00:00Z
+N006,ANALYZER,analyzer_result_unit,unit of the analyzer result,n/a,string,SCHEMA_V1,2025-01-10T00:00:00Z,
+N007,ETL,etl_unit,unit label in the extraction layer,n/a,string,SCHEMA_V1,2025-01-10T00:00:00Z,2025-06-01T05:00:00Z
+N008,LIS,lis_result_unit,unit label stored in the LIS,n/a,string,SCHEMA_V1,2025-01-10T00:00:00Z,2025-06-01T05:00:00Z
+N009,REPORT,report_result_unit,unit label rendered on the report,n/a,string,SCHEMA_V1,2025-01-10T00:00:00Z,2025-06-01T05:00:00Z
+N010,LIS,lis_test_code,test code in the LIS,n/a,string,SCHEMA_V1,2025-01-10T00:00:00Z,
+N011,INTERFACE,iface_test_code,test code on the outbound interface,n/a,string,SCHEMA_V1,2025-01-10T00:00:00Z,2025-06-01T05:00:00Z
+N012,REPORT,report_test_code,test code rendered on the report,n/a,string,SCHEMA_V1,2025-01-10T00:00:00Z,2025-06-01T05:00:00Z
+N013,LIS,lis_ref_range,reference range text in the LIS,n/a,string,SCHEMA_V1,2025-01-10T00:00:00Z,
+N014,REPORT,report_ref_range,reference range rendered on the report,n/a,string,SCHEMA_V1,2025-01-10T00:00:00Z,
+N015,REPORT,report_abnormal_flag,abnormal flag computed for the report,n/a,enum,SCHEMA_V1,2025-01-10T00:00:00Z,
+N016,ETL,etl_result_v2,parsed result value in the extraction layer (v2 pipeline),mg/dL,numeric,SCHEMA_V2,2025-06-01T05:00:00Z,
+N017,LIS,lis_result_value_v2,stored result value in the LIS (v2),mg/dL,numeric,SCHEMA_V2,2025-06-01T05:00:00Z,
+N018,INTERFACE,iface_result_value_v2,result value on the outbound interface (v2),mg/dL,numeric,SCHEMA_V2,2025-06-01T05:00:00Z,
+N019,REPORT,report_result_value_v2,result value rendered on the report (v2),mg/dL,numeric,SCHEMA_V2,2025-06-01T05:00:00Z,
+N020,ETL,etl_unit_v2,unit label in the extraction layer (v2),n/a,string,SCHEMA_V2,2025-06-01T05:00:00Z,
+N021,LIS,lis_result_unit_v2,unit label stored in the LIS (v2),n/a,string,SCHEMA_V2,2025-06-01T05:00:00Z,
+N022,REPORT,report_result_unit_v2,unit label rendered on the report (v2),n/a,string,SCHEMA_V2,2025-06-01T05:00:00Z,
+N023,INTERFACE,iface_test_code_v2,test code on the outbound interface (v2),n/a,string,SCHEMA_V2,2025-06-01T05:00:00Z,
+N024,REPORT,report_test_code_v2,test code rendered on the report (v2),n/a,string,SCHEMA_V2,2025-06-01T05:00:00Z,
+N025,ETL,etl_specimen_code,specimen code in the extraction layer,n/a,string,SCHEMA_V2,2025-06-01T05:00:00Z,
+N026,LIS,lis_specimen_code,specimen code stored in the LIS,n/a,string,SCHEMA_V2,2025-06-01T05:00:00Z,
+N027,REPORT,report_specimen_code,specimen code rendered on the report,n/a,string,SCHEMA_V2,2025-06-01T05:00:00Z,
+N028,REPORT,report_reagent_lot,reagent lot rendered on the report,n/a,string,SCHEMA_V2,2025-06-01T05:00:00Z,
+N029,ETL,etl_reagent_lot,reagent lot in the extraction layer,n/a,string,SCHEMA_V2,2025-06-01T05:00:00Z,
+N030,LIS,lis_accession_code,accession code in the LIS,n/a,string,SCHEMA_V1,2025-01-10T00:00:00Z,
+N031,LIS,lis_collection_datetime,collection timestamp in the LIS,n/a,datetime,SCHEMA_V1,2025-01-10T00:00:00Z,
+N032,REPORT,report_collection_datetime,collection timestamp rendered on the report,n/a,datetime,SCHEMA_V2,2025-06-01T05:00:00Z,
