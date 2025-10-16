@@ -1,0 +1,6 @@
+field_name,unit,value_range,missing_rate,era
+signal_r,mV,0..100,0.02,ERA_2024
+signal_s,mV,0..100,0.02,ERA_2024
+reading_r,mg/dL,0..300,0.03,ERA_2024
+signal_r,mV,0..100,0.02,ERA_2025
+reading_r,mg/dL,0..300,0.03,ERA_2025

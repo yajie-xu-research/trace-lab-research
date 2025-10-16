@@ -1,0 +1,8 @@
+from_node,to_node,transform_id,rule_version,active_from,active_to,confirmed_by,source_file
+nd_alpha,nd_gamma,tf.a01,r1.0,2024-03-01T00:00:00Z,2025-01-01T00:00:00Z,reviewer,cfg/coll_a.yaml
+nd_beta,nd_gamma,tf.a02,r1.0,2024-03-01T00:00:00Z,2025-01-01T00:00:00Z,reviewer,cfg/coll_b.yaml
+nd_gamma,nd_delta,tf.a03,r1.1,2024-03-01T00:00:00Z,2025-01-01T00:00:00Z,reviewer,cfg/norm.yaml
+nd_delta,nd_eps,tf.a04,r1.0,2024-03-01T00:00:00Z,2025-01-01T00:00:00Z,reviewer,cfg/feed.yaml
+nd_zeta,nd_eta,tf.b01,r2.0,2025-01-01T00:00:00Z,,reviewer,cfg/coll_a2.yaml
+nd_eta,nd_theta,tf.b02,r2.0,2025-01-01T00:00:00Z,,reviewer,cfg/norm2.yaml
+nd_theta,nd_iota,tf.b03,r2.0,2025-01-01T00:00:00Z,,reviewer,cfg/feed2.yaml

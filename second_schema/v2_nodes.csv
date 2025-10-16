@@ -1,0 +1,10 @@
+node_id,system,field_name,semantic_definition,unit,datatype,schema_version,active_from,active_to
+nd_alpha,COLLECTOR,signal_r,raw signal channel,mV,numeric,ERA_2024,2024-03-01T00:00:00Z,2025-01-01T00:00:00Z
+nd_beta,COLLECTOR,signal_s,raw signal channel,mV,numeric,ERA_2024,2024-03-01T00:00:00Z,2025-01-01T00:00:00Z
+nd_gamma,NORMALIZER,signal_r,normalized reading,mV,numeric,ERA_2024,2024-03-01T00:00:00Z,2025-01-01T00:00:00Z
+nd_delta,STORE,reading_r,stored reading,mg/dL,numeric,ERA_2024,2024-03-01T00:00:00Z,2025-01-01T00:00:00Z
+nd_eps,FEED,reading_r,feed output,mg/dL,numeric,ERA_2024,2024-03-01T00:00:00Z,2025-01-01T00:00:00Z
+nd_zeta,COLLECTOR,signal_r,raw signal channel,mV,numeric,ERA_2025,2025-01-01T00:00:00Z,
+nd_eta,NORMALIZER,signal_r,normalized reading,mV,numeric,ERA_2025,2025-01-01T00:00:00Z,
+nd_theta,STORE,reading_r,stored reading,mg/dL,numeric,ERA_2025,2025-01-01T00:00:00Z,
+nd_iota,FEED,reading_r,feed output,mg/dL,numeric,ERA_2025,2025-01-01T00:00:00Z,
