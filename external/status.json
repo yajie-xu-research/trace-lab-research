@@ -1,0 +1,21 @@
+{
+  "status": "NOT_OBTAINED",
+  "external_validation": "NOT_OBTAINED",
+  "cross_model_validation": "NOT_OBTAINED",
+  "real_usage_evidence": "NOT_OBTAINED",
+  "publication": "NOT_OBTAINED",
+  "citations": "NOT_OBTAINED",
+  "payments_or_funding": "NONE",
+  "missing": [
+    "independent external test protocol execution",
+    "second data model supplied by an external party",
+    "real-world deployment or usage records",
+    "publication or archival records",
+    "third-party references"
+  ],
+  "internal_rehearsal": {
+    "second_schema": "INTERNAL_ONLY",
+    "note": "An internal rehearsal of the cross-model challenge exists under second_schema/ and is for design verification only; it is not external validation."
+  },
+  "note": "No external result may be fabricated. The protocol draft in external/EXTERNAL_VALIDATION_PROTOCOL_DRAFT.md defines the scope for a future independent execution."
+}
