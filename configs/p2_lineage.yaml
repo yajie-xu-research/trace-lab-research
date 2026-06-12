@@ -1,0 +1,101 @@
+# TRACE-LAB lineage resolution and triage policy.
+# Rule version 1.2 (2026-06-12): version-validity edge cases fixed.
+# All thresholds here are parameters of the transparent rule scorer, frozen
+# before any evaluation. They are not fitted to labels.
+
+rule_version: "1.2"
+frozen_at: "2026-06-12"
+
+lineage:
+  # SCHEMA_V1 is valid from project start until 2025-06-01T05:00:00Z;
+  # SCHEMA_V2 takes over from that instant. Both are defined per node/edge via
+  # valid_from/valid_to. Empty valid_to means open-ended (still valid).
+  schema_version_boundary: "2025-06-01T05:00:00Z"
+  # When walking upstream from an anomaly node, a path is unresolved if any
+  # node or edge on the path is not valid at the anomaly time, if the walk
+  # revisits a node (cycle), or if two edges overlap with conflicting
+  # rule_versions for the same (from_node, to_node) pair.
+  conflict_rule: >-
+    two edges with the same (from_node, to_node) and overlapping validity
+    must share the same transform_id and rule_version; otherwise the lineage
+    is contradictory.
+
+anomaly_detection:
+  observation_window_days: 28
+  missing_rate_shift_threshold: 0.15
+  change_point_z_threshold: 4.0
+  range_tolerance: 0.0
+  min_observations_per_window: 4
+  rules:
+    - FORMAT_VIOLATION
+    - RANGE_VIOLATION
+    - UNIT_DEVIATION
+    - MISSING_RATE_SHIFT
+    - CHANGE_POINT
+
+candidate_search:
+  # The candidate window is anchored at the anomaly window START. A change is
+  # a candidate when it is effective between (window_start - lookback) and
+  # (window_start + lookahead): a change already in effect shortly before the
+  # window, or one that took effect inside the window (which can explain the
+  # second half of a change-point window), may explain the anomaly. A change
+  # that only takes effect well after the window cannot.
+  lookback_days: 25
+  lookahead_days: 21
+  max_upstream_hops: 8
+
+scoring:
+  # Transparent rule scorer. Weights are fixed design parameters that make the
+  # program run; they were frozen before any evaluation and are not fitted
+  # to ground-truth labels.
+  weights:
+    lineage_path_association: 2.0     # required gate (score zeroed otherwise)
+    time_validity: 2.0                # required gate
+    symptom_type_match: 3.0           # scale of the raw signature weight 0..3
+    time_proximity_scale: 1.0         # bonus = max(0, 1 - days_before/25)
+    missing_pattern_alignment: 1.0
+    node_distance_penalty_per_hop: 0.2
+    affected_span_bonus: 1.0          # change covers the anomaly node itself
+    counter_example_penalty: 3.0      # per counter-example found
+  min_triage_score: 4.0
+  tie_epsilon: 0.5
+  ambiguous_window_days: 7            # overlapping effective windows within this
+                                     # span count as "nearby" for ambiguity
+
+decisions:
+  triage: TRIAGE
+  abstain: ABSTAIN
+  reason_codes:
+    - AMBIGUOUS_CANDIDATES
+    - LINEAGE_UNRESOLVED
+    - INSUFFICIENT_EVIDENCE
+  triage_meaning: >-
+    TRIAGE recommends human review of the listed candidate changes and
+    categories; it does not assert that the change caused the anomaly.
+
+baselines:
+  - baseline_id: B0_SINGLE_FIELD_RULES
+    description: >-
+      Single-field format/range/unit rules without lineage. The anomaly rule
+      alone is mapped to a category by a fixed rule-to-category table.
+  - baseline_id: B1_NO_LINEAGE_DETECTION
+    description: >-
+      Same anomaly detector but candidates are the temporally nearest schema
+      changes regardless of lineage path.
+  - baseline_id: B2_CHANGE_POINT_ONLY
+    description: >-
+      Ordinary change-point detection only; attributes the anomaly to the most
+      recent change regardless of type or lineage.
+  - baseline_id: B3_SITE_MAPPING_TABLE
+    description: >-
+      A static site-specific table mapping (system, anomaly rule) to a
+      category. Hardcoded for the studied site; does not transfer to a
+      different data model.
+
+ground_truth_isolation:
+  directory_name: _ground_truth
+  rule: >-
+    Triage stages ground-truth labels only under data/_ground_truth/ inside the
+    run directory and never reads that directory (or the defect ticket file)
+    as a feature source. Deleting the ground-truth inputs must leave triage
+    outputs byte-identical.

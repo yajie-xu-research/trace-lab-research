@@ -1,0 +1,235 @@
+# Table structures for the TRACE-LAB data contract.
+# Schemas are frozen; the validation command checks every rule listed here and
+# writes excluded rows to excluded_rows.csv with a reason per row.
+
+schema_version: "1.0"
+frozen_at: "2026-06-12"
+
+tables:
+  lineage_nodes:
+    file: lineage_nodes.csv
+    columns:
+      - name: node_id
+        dtype: string
+        required: true
+        unique: true
+        pattern: "^N[0-9]{3}$"
+      - name: system
+        dtype: string
+        required: true
+        enum: [ANALYZER, ETL, LIS, INTERFACE, REPORT]
+      - name: field_name
+        dtype: string
+        required: true
+      - name: semantic_definition
+        dtype: string
+        required: true
+      - name: unit
+        dtype: string
+        required: true
+      - name: datatype
+        dtype: string
+        required: true
+        enum: [numeric, string, enum, datetime]
+      - name: schema_version
+        dtype: string
+        required: true
+        enum: [SCHEMA_V1, SCHEMA_V2]
+      - name: valid_from
+        dtype: utc_timestamp
+        required: true
+      - name: valid_to
+        dtype: utc_timestamp_or_empty
+        required: false
+    time_order_rules:
+      - [valid_from, valid_to]
+
+  lineage_edges:
+    file: lineage_edges.csv
+    columns:
+      - name: from_node
+        dtype: string
+        required: true
+        pattern: "^N[0-9]{3}$"
+      - name: to_node
+        dtype: string
+        required: true
+        pattern: "^N[0-9]{3}$"
+      - name: transform_id
+        dtype: string
+        required: true
+        pattern: "^T_[A-Z0-9_]+$"
+      - name: rule_version
+        dtype: string
+        required: true
+      - name: valid_from
+        dtype: utc_timestamp
+        required: true
+      - name: valid_to
+        dtype: utc_timestamp_or_empty
+        required: false
+      - name: confirmed_by
+        dtype: string
+        required: true
+      - name: source_file
+        dtype: string
+        required: true
+    key: [from_node, to_node, valid_from]
+    unique: true
+    time_order_rules:
+      - [valid_from, valid_to]
+    cross_rules:
+      - from_node != to_node
+      - from_node in lineage_nodes
+      - to_node in lineage_nodes
+
+  schema_changes:
+    file: schema_changes.csv
+    columns:
+      - name: change_id
+        dtype: string
+        required: true
+        unique: true
+        pattern: "^C[0-9]{4}$"
+      - name: affected_nodes
+        dtype: node_list
+        required: true
+      - name: change_category
+        dtype: string
+        required: true
+        enum:
+          - UNIT_REDEFINITION
+          - INTERFACE_REMAP
+          - SEMANTIC_REDEFINITION
+          - EXTRACTION_PIPELINE_CHANGE
+          - BUSINESS_CHANGE
+          - NORMAL_CHANGE
+      - name: submitted_at
+        dtype: utc_timestamp
+        required: true
+      - name: approved_at
+        dtype: utc_timestamp
+        required: true
+      - name: effective_at
+        dtype: utc_timestamp
+        required: true
+      - name: version
+        dtype: string
+        required: true
+        enum: [SCHEMA_V1, SCHEMA_V2]
+      - name: ticket_index
+        dtype: string_or_empty
+        required: false
+    time_order_rules:
+      - [submitted_at, approved_at]
+      - [approved_at, effective_at]
+
+  defect_tickets:
+    file: defect_tickets.csv
+    columns:
+      - name: defect_id
+        dtype: string
+        required: true
+        unique: true
+        pattern: "^D[0-9]{4}$"
+      - name: detected_at
+        dtype: utc_timestamp
+        required: true
+      - name: field_version
+        dtype: string
+        required: true
+      - name: symptom
+        dtype: string
+        required: true
+      - name: detection_method
+        dtype: string
+        required: true
+        enum:
+          - FORMAT_VIOLATION
+          - RANGE_VIOLATION
+          - UNIT_DEVIATION
+          - MISSING_RATE_SHIFT
+          - CHANGE_POINT
+          - ROUTINE_AUDIT
+      - name: confirmed_category
+        dtype: string
+        required: true
+        enum:
+          - FIELD_SEMANTIC_CHANGE
+          - INTERFACE_MAPPING_ERROR
+          - UNIT_CHANGE
+          - EXTRACTION_FAILURE
+          - TRUE_BUSINESS_CHANGE
+          - UNKNOWN
+      - name: confirmed_at
+        dtype: utc_timestamp
+        required: true
+      - name: basis
+        dtype: string
+        required: true
+      - name: adjudicated_by
+        dtype: string
+        required: true
+    time_order_rules:
+      - [detected_at, confirmed_at]
+
+  field_profiles:
+    file: field_profiles.csv
+    columns:
+      - name: field_name
+        dtype: string
+        required: true
+        unique: true
+      - name: unit
+        dtype: string
+        required: true
+      - name: value_range
+        dtype: string
+        required: true
+      - name: missing_rate
+        dtype: float
+        required: true
+        range: [0.0, 1.0]
+      - name: time_window
+        dtype: string
+        required: true
+
+  field_observations:
+    file: field_observations.csv
+    note: >-
+      Raw observation stream over time, the input signal for anomaly
+      detection. This is the sixth input table, distinct from the five
+      metadata tables; see research/decisions/0001.
+    columns:
+      - name: observation_id
+        dtype: string
+        required: true
+        unique: true
+        pattern: "^OBS[0-9]{6}$"
+      - name: node_id
+        dtype: string
+        required: true
+        pattern: "^N[0-9]{3}$"
+      - name: observed_at_utc
+        dtype: utc_timestamp
+        required: true
+      - name: raw_value
+        dtype: string
+        required: false
+      - name: parsed_value
+        dtype: string_or_empty
+        required: false
+      - name: reported_unit
+        dtype: string_or_empty
+        required: false
+      - name: source_system
+        dtype: string
+        required: true
+        enum: [ANALYZER, ETL, LIS, INTERFACE, REPORT]
+      - name: record_version
+        dtype: string
+        required: true
+    cross_rules:
+      - node_id in lineage_nodes
+      - source_system == system of node_id
+    sort_keys: [node_id, observed_at_utc]

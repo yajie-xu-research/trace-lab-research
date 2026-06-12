@@ -1,0 +1,63 @@
+# Static per-site mapping table used by baseline B3 (site-specific mapping).
+# This table is deliberately frozen for the studied site's node/system naming
+# scheme. It is a baseline, not the TRACE-LAB method; it cannot generalize to
+# a different schema or site naming convention.
+
+baseline_id: B3_SITE_MAPPING_TABLE
+rule_version: "1.2"
+frozen_at: "2026-06-12"
+site_scope: SITE_STUDY
+
+mapping:
+  - system: ANALYZER
+    anomaly_rule: FORMAT_VIOLATION
+    category: EXTRACTION_FAILURE
+  - system: ANALYZER
+    anomaly_rule: RANGE_VIOLATION
+    category: UNIT_CHANGE
+  - system: ANALYZER
+    anomaly_rule: UNIT_DEVIATION
+    category: UNIT_CHANGE
+  - system: ETL
+    anomaly_rule: FORMAT_VIOLATION
+    category: EXTRACTION_FAILURE
+  - system: ETL
+    anomaly_rule: MISSING_RATE_SHIFT
+    category: EXTRACTION_FAILURE
+  - system: LIS
+    anomaly_rule: FORMAT_VIOLATION
+    category: EXTRACTION_FAILURE
+  - system: LIS
+    anomaly_rule: RANGE_VIOLATION
+    category: UNIT_CHANGE
+  - system: LIS
+    anomaly_rule: CHANGE_POINT
+    category: FIELD_SEMANTIC_CHANGE
+  - system: INTERFACE
+    anomaly_rule: FORMAT_VIOLATION
+    category: INTERFACE_MAPPING_ERROR
+  - system: INTERFACE
+    anomaly_rule: CHANGE_POINT
+    category: INTERFACE_MAPPING_ERROR
+  - system: REPORT
+    anomaly_rule: FORMAT_VIOLATION
+    category: INTERFACE_MAPPING_ERROR
+  - system: REPORT
+    anomaly_rule: RANGE_VIOLATION
+    category: UNIT_CHANGE
+  - system: REPORT
+    anomaly_rule: UNIT_DEVIATION
+    category: UNIT_CHANGE
+  - system: REPORT
+    anomaly_rule: MISSING_RATE_SHIFT
+    category: EXTRACTION_FAILURE
+  - system: REPORT
+    anomaly_rule: CHANGE_POINT
+    category: FIELD_SEMANTIC_CHANGE
+
+fallback:
+  # Unknown (system, rule) combinations abstain. This is what makes the
+  # mapping table non-transferable: a new site or data model produces new
+  # combinations and the baseline degrades to abstention.
+  decision: ABSTAIN
+  reason_code: INSUFFICIENT_EVIDENCE
