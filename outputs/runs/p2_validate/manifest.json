@@ -1,0 +1,20 @@
+{
+  "run_id": "run-p2-trace-lab-validate-20260627T081000Z",
+  "utc": "2026-06-28T08:45:00Z",
+  "project": "P2_TRACE_LAB",
+  "status": "INTERNAL_RESEARCH",
+  "commit": "96fc06abdc355e831955e38cb5c0f6e1602db977",
+  "config_hash": "bc0f4fe08fb6213b7391e1f0a95d58541fe20bbeaef26dcce93ca8db564485e5",
+  "data_hash": "a9eaaace5b35686361281f5544b9749921c6c0c0c74b935ef8f55ab3142e73d0",
+  "permissions": "res://data_permissions_register/P2_TRACE_LAB/scope-v1/internal_research_use_only/registered-2025-01-10",
+  "operator": "trace-lab-maintainer",
+  "input_rows": 2408,
+  "excluded_rows": 0,
+  "model_or_rule_version": "1.0",
+  "command": "trace-lab validate --input synthetic_data --config configs/p2_categories.yaml --schema schemas/p2_tables.yaml --seed 20250110 --out outputs/runs/p2_validate",
+  "environment": "",
+  "seed": 20250110,
+  "known_issues": [],
+  "results_hash": "6f2070b7d2d839700add2403549ade198abfbe0870fbfd6218ac9b1010b741ba",
+  "result_hash": "1681539124585e38046454b27a4b218dd6c17f955aa480137c8d77b97e945210"
+}

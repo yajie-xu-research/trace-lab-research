@@ -10,3 +10,13 @@ __pycache__/
 venv/
 .DS_Store
 .pytest_cache/
+
+# Wall-clock runs after 2026-06-30 are not versioned. Only curated historical
+# run directories under outputs/runs/ are tracked.
+outputs/runs/*/
+!outputs/runs/p2_triage/
+!outputs/runs/p2_triage/**
+!outputs/runs/p2_evaluation/
+!outputs/runs/p2_evaluation/**
+!outputs/runs/p2_validate/
+!outputs/runs/p2_validate/**

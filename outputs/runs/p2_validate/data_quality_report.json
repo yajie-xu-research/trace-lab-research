@@ -1,0 +1,32 @@
+{
+  "schema_version": "1.0",
+  "per_table": {
+    "lineage_nodes": {
+      "rows": 32,
+      "errors": 0
+    },
+    "lineage_edges": {
+      "rows": 40,
+      "errors": 0
+    },
+    "schema_changes": {
+      "rows": 117,
+      "errors": 0
+    },
+    "defect_tickets": {
+      "rows": 180,
+      "errors": 0
+    },
+    "field_profiles": {
+      "rows": 19,
+      "errors": 0
+    },
+    "field_observations": {
+      "rows": 2020,
+      "errors": 0
+    }
+  },
+  "error_count": 0,
+  "excluded_row_count": 0,
+  "errors": []
+}

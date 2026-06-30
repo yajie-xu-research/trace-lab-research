@@ -1,0 +1,4 @@
+[2026-06-28T09:15:00Z] run started
+[2026-06-28T09:15:00Z] evaluated 210 anomaly rows against 66 perturbations and 65 controls
+[2026-06-28T09:15:00Z] main abstain_rate=0.5143
+[2026-06-28T09:15:00Z] run finished

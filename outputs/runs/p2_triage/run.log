@@ -1,0 +1,5 @@
+[2026-06-28T09:00:00Z] run started
+[2026-06-28T09:00:00Z] loaded 2020 observation rows; 0 orphan rows excluded
+[2026-06-28T09:00:00Z] anomalies=210 triage=102 abstain=108
+[2026-06-28T09:00:00Z] manifest result_hash=e8de399cdf8119d120123ddcbb6fd5d8b1660fb0b5e1027fb524ac7aa1295a79
+[2026-06-28T09:00:00Z] run finished

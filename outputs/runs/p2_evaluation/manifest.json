@@ -1,0 +1,23 @@
+{
+  "run_id": "run-p2-trace-lab-p2-evaluate-20260628T091500Z",
+  "utc": "2026-06-28T09:15:00Z",
+  "project": "P2_TRACE_LAB",
+  "status": "INTERNAL_RESEARCH",
+  "commit": "96fc06abdc355e831955e38cb5c0f6e1602db977",
+  "config_hash": "b89c9746462b99fb44c267abff0b49a1e406c2710ecf6f1d48c4782c88bcface",
+  "data_hash": "cea164366c9889e1e11793444b7e89f44134bf58ae6b57d77ad8d9ae16e95b14",
+  "permissions": "res://data_permissions_register/P2_TRACE_LAB/scope-v1/internal_research_use_only/registered-2025-01-10",
+  "operator": "trace-lab-maintainer",
+  "input_rows": 210,
+  "excluded_rows": 0,
+  "model_or_rule_version": "1.2",
+  "command": "trace-lab p2 evaluate --run outputs/runs/p2_triage --policy configs/p2_lineage.yaml --baselines configs/p2_baselines.yaml --seed 20250110 --out outputs/runs/p2_evaluation",
+  "environment": "",
+  "seed": 20250110,
+  "known_issues": [
+    "Per-category precision is row-level; recall is perturbation-level.",
+    "UNKNOWN and ambiguous/broken perturbations are measured as abstention behavior, not as category recall."
+  ],
+  "results_hash": "401742caae12e81f5b39fea9d36506b9dd7be99d10ae99afac80aafdcab02ae6",
+  "result_hash": "5611267208aeee7c1907ff6767be3194fe45023ffa9cc94161800e499e98d0a4"
+}

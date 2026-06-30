@@ -1,0 +1,18 @@
+{
+  "evaluated_run_id": "run-p2-trace-lab-p2-triage-20260628T090000Z",
+  "anomaly_rows": 210,
+  "methods_compared": [
+    "TRACE_LAB_MAIN",
+    "B0_SINGLE_FIELD_RULES",
+    "B1_NO_LINEAGE_DETECTION",
+    "B2_CHANGE_POINT_ONLY",
+    "B3_SITE_MAPPING_TABLE"
+  ],
+  "main_method": {
+    "abstain_rate": 0.5143,
+    "false_positive_rate_on_controls": 0.0,
+    "misattribution_rows": 0,
+    "detected_perturbations": 39,
+    "evaluable_perturbations": 39
+  }
+}
